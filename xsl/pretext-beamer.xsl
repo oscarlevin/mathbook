@@ -9,7 +9,7 @@
 >
 <xsl:import href="./mathbook-latex.xsl" />
 
-<xsl:output method="text"/>
+<xsl:output method="text" indent="no"/>
 
 <xsl:template match="/">
     <xsl:call-template name="banner-warning">
@@ -50,6 +50,7 @@
 
 <xsl:template match="pretext/docinfo/macros">
     <xsl:value-of select="."/>
+    <xsl:text>&#xa;</xsl:text>
 </xsl:template>
 
 <xsl:template name="body">
@@ -99,39 +100,39 @@
 
 
 <xsl:template match="p">
-  <xsl:text>&#xa;</xsl:text>
     <xsl:if test="@pause = 'yes'">
-        <xsl:text>\pause &#xa;</xsl:text>
+        <xsl:text>&#xa;\pause &#xa;&#xa;</xsl:text>
     </xsl:if>
     <xsl:apply-templates/>
+    <xsl:text>&#xa;</xsl:text>
 </xsl:template>
 
 <xsl:template match="ul">
   <xsl:if test="@pause = 'yes'">
-    <xsl:text>\pause &#xa;</xsl:text>
+    <xsl:text>&#xa;\pause &#xa;&#xa;</xsl:text>
   </xsl:if>
   <xsl:text>\begin{itemize}</xsl:text>
   <xsl:if test="@pause = 'yes'">
     <xsl:text>[&lt;+-&gt;]</xsl:text>
   </xsl:if>
   <xsl:apply-templates/>
-  <xsl:text>\end{itemize}</xsl:text>
+  <xsl:text>\end{itemize}&#xa;</xsl:text>
 </xsl:template>
 
 <xsl:template match="ol">
   <xsl:if test="@pause = 'yes'">
-    <xsl:text>\pause &#xa;</xsl:text>
+    <xsl:text>&#xa;\pause &#xa;&#xa;</xsl:text>
   </xsl:if>
   <xsl:text>\begin{enumerate}</xsl:text>
   <xsl:if test="@pause = 'yes'">
     <xsl:text>[&lt;+-&gt;]</xsl:text>
   </xsl:if>
   <xsl:apply-templates/>
-  <xsl:text>\end{enumerate}</xsl:text>
+  <xsl:text>\end{enumerate}&#xa;</xsl:text>
 </xsl:template>
 
 <xsl:template match="li">
-  <xsl:text>&#xa;\item{}</xsl:text>
+  <xsl:text>&#xa;\item{} </xsl:text>
   <xsl:apply-templates/>
   <xsl:text>&#xa;</xsl:text>
 </xsl:template>
@@ -151,7 +152,7 @@
 
   <xsl:for-each select="*">
     <xsl:if test="parent::*/@pause = 'yes'">
-      <xsl:text>\pause &#xa;</xsl:text>
+      <xsl:text>&#xa;\pause &#xa;&#xa;</xsl:text>
     </xsl:if>
     <xsl:text>\begin{tcolorbox}[valign=top, width=</xsl:text>
       <xsl:value-of select="$widthFraction" />
@@ -177,6 +178,19 @@
 
     <xsl:copy-of select="$content"/>
 </xsl:template> -->
+</xsl:template>
+
+
+
+<xsl:template match="example">
+  <xsl:text>\begin{example}[</xsl:text>
+  <xsl:if test="@source-number">
+    <xsl:value-of select="@source-number"/>
+  </xsl:if>
+  <xsl:apply-templates select="." mode="title-full" />
+<xsl:text>]</xsl:text>
+    <xsl:apply-templates/>
+<xsl:text>\end{example}&#xa;</xsl:text>
 </xsl:template>
 
 
