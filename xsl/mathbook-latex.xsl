@@ -776,8 +776,9 @@ along with MathBook XML.  If not, see <http://www.gnu.org/licenses/>.
         <xsl:text>%% end: pdflatex-specific monospace font&#xa;</xsl:text>
         <xsl:text>}&#xa;</xsl:text>
     </xsl:if>
-    <xsl:text>%% Symbols, align environment, bracket-matrix&#xa;</xsl:text>
+    <xsl:text>%% Symbols, align environment, commutative diagrams, bracket-matrix&#xa;</xsl:text>
     <xsl:text>\usepackage{amsmath}&#xa;</xsl:text>
+    <xsl:text>\usepackage{amscd}&#xa;</xsl:text>
     <xsl:text>\usepackage{amssymb}&#xa;</xsl:text>
     <xsl:text>%% allow page breaks within display mathematics anywhere&#xa;</xsl:text>
     <xsl:text>%% level 4 is maximally permissive&#xa;</xsl:text>
@@ -7952,6 +7953,12 @@ along with MathBook XML.  If not, see <http://www.gnu.org/licenses/>.
     <xsl:text>\textsection{}</xsl:text>
 </xsl:template>
 
+<!-- Minus -->
+<!-- A hyphen/dash for use in text as subtraction or negation-->
+<xsl:template name="minus-character">
+    <xsl:text>\textminus{}</xsl:text>
+</xsl:template>
+
 <!-- Times -->
 <!-- A "multiplication sign" symbol for use in text -->
 <xsl:template name="times-character">
@@ -7970,6 +7977,18 @@ along with MathBook XML.  If not, see <http://www.gnu.org/licenses/>.
 <!-- This should not allow a linebreak, not tested -->
 <xsl:template name="solidus-character">
     <xsl:text>\textfractionsolidus{}</xsl:text>
+</xsl:template>
+
+<!-- Obelus -->
+<!-- A "division" symbol for use in text -->
+<xsl:template name="obelus-character">
+    <xsl:text>\textdiv{}</xsl:text>
+</xsl:template>
+
+<!-- Plus/Minus -->
+<!-- The combined symbol -->
+<xsl:template match="plusminus">
+    <xsl:text>\textpm{}</xsl:text>
 </xsl:template>
 
 <!-- Backtick -->
